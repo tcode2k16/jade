@@ -22,12 +22,17 @@ body {
   content: " ";
 }
 
+.hidden {
+  display: none;
+}
+
 .box {
     position: absolute;
     margin-left: -64px;
     margin-top: -80px;
     width:  128px;
     height: 160px;
+    overflow: hidden;
     
 }
 
@@ -36,4 +41,6 @@ body {
   height: 16px;
   display: block;
   position: absolute;
+  transition: all 0.2s linear;
+  transform: translate3d(-16px,-16px,0px)
 }
