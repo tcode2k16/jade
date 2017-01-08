@@ -1,0 +1,64 @@
+.selected::after {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: block;
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    background: url("spritesheet.png") -0px -0px;
+	background-size: 42px 42px;
+    content: " ";
+    image-rendering: pixelated;
+}
+
+.blueGem {
+    width: 14px;
+    height: 14px;
+    background: url("spritesheet.png") -16px -0px;
+	background-size: 42px 42px;
+}
+
+.purpleGem {
+    width: 14px;
+    height: 14px;
+    background: url("spritesheet.png") -0px -16px;
+	background-size: 42px 42px;
+}
+
+.greenGem {
+    width: 10px;
+    height: 14px;
+    background: url("spritesheet.png") -14px -16px;
+	background-size: 42px 42px;
+}
+
+.gold {
+    width: 12px;
+    height: 12px;
+    background: url("spritesheet.png") -30px -0px;
+	background-size: 42px 42px;
+}
+
+.redGem {
+    width: 12px;
+    height: 12px;
+    background: url("spritesheet.png") -30px -12px;
+	background-size: 42px 42px;
+}
+
+.silver {
+    width: 12px;
+    height: 12px;
+    background: url("spritesheet.png") -0px -30px;
+	background-size: 42px 42px;
+}
+
+.whiteGem {
+    width: 12px;
+    height: 12px;
+    background: url("spritesheet.png") -12px -30px;
+	background-size: 42px 42px;
+}
+

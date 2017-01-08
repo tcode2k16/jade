@@ -1,0 +1,39 @@
+body {
+  background: #fff;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.app {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+
+.item {
+  position: absolute;
+  image-rendering: pixelated;
+  left: 50%;
+  top: 50%;
+  /*margin-left: -6px;
+  margin-top: -6px;*/
+  content: " ";
+}
+
+.box {
+    position: absolute;
+    margin-left: -64px;
+    margin-top: -80px;
+    width:  128px;
+    height: 160px;
+    
+}
+
+.tile {
+  width: 16px;
+  height: 16px;
+  display: block;
+  position: absolute;
+}
