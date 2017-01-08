@@ -69,7 +69,7 @@ export default class Item {
         this.hammer = new Hammer.Manager(this.el);
         this.hammer.add(new Hammer.Tap())
 
-        this.hammer.on('tap', this.parent.handleClick.bind(this.parent));
+        this.hammer.on('tap', this.parent.handleClick.bind(this.parent,this));
 
     }
 

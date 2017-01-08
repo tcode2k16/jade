@@ -21,6 +21,8 @@ class Game {
             'whiteGem': 7
         };
 
+        this.onSelect = undefined;
+
         
         this.init_blocks()
 
@@ -54,8 +56,35 @@ class Game {
         }
     }
 
-    handleClick(el) {
-        el.classList.toggle('selected')
+    handleClick(obj) {
+        if (this.onSelect) {
+            if (this.inRange(obj,this.onSelect)) {
+                this.swap(obj,this.onSelect);
+                if (this.haveMatch(this.toString()))
+                    this.removeMatches()
+                else
+                    setTimeout(this.swap.bind(this,obj,this.onSelect),DELAY);
+            }
+            this.onSelect.el.classList.toggle('selected');
+            this.onSelect = undefined;
+
+            
+        } else {
+            obj.el.classList.toggle('selected');
+            this.onSelect = obj;
+        }
+
+    }
+
+    inRange(e1, e2) {
+        return Math.min(Math.abs(e1.x-e2.x),Math.abs(e1.y-e2.y)) < 2; 
+    }
+
+    swap(e1, e2) {
+        this.blocks[e1.x][e1.y] = e2;
+        this.blocks[e2.x][e2.y] = e1;
+        this.update();
+
     }
 
     randomItemType() {
