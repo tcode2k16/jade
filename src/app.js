@@ -14,11 +14,11 @@ class Game {
         this.itemTypes = {
             'blueGem': 1,
             'purpleGem': 2,
-            'greenGem': 3,
-            'gold': 4,
-            'redGem': 5,
-            'silver': 6,
-            'whiteGem': 7
+            'greenGem': 3
+            // 'gold': 4,
+            // 'redGem': 5,
+            // 'silver': 6,
+            // 'whiteGem': 7
         };
 
         this.onSelect = undefined;
@@ -57,27 +57,30 @@ class Game {
     }
 
     handleClick(obj) {
-        if (this.onSelect) {
-            if (this.inRange(obj,this.onSelect)) {
-                this.swap(obj,this.onSelect);
-                if (this.haveMatch(this.toString()))
-                    this.removeMatches()
-                else
-                    setTimeout(this.swap.bind(this,obj,this.onSelect),DELAY);
-            }
-            this.onSelect.el.classList.toggle('selected');
-            this.onSelect = undefined;
+        if (!this.moving) {
+            if (this.onSelect) {
+                if (this.inRange(obj,this.onSelect)) {
+                    this.swap(obj,this.onSelect);
+                    if (this.haveMatch(this.toString()))
+                        this.removeMatches()
+                    else
+                        setTimeout(this.swap.bind(this,obj,this.onSelect),DELAY);
+                }
+                this.onSelect.el.classList.toggle('selected');
+                this.onSelect = undefined;
 
-            
-        } else {
-            obj.el.classList.toggle('selected');
-            this.onSelect = obj;
+                
+            } else {
+                obj.el.classList.toggle('selected');
+                this.onSelect = obj;
+            }
         }
+        
 
     }
 
     inRange(e1, e2) {
-        return Math.min(Math.abs(e1.x-e2.x),Math.abs(e1.y-e2.y)) < 2; 
+        return (Math.abs(e1.x-e2.x) < 2 && e1.y === e2.y) || (Math.abs(e1.y-e2.y) < 2 && e1.x === e2.x)
     }
 
     swap(e1, e2) {
@@ -143,6 +146,7 @@ class Game {
                 rm.map(function (e) {
                     this.removeItem(e)
                 }.bind(this))
+
                 this.update();
 
                 console.log(this.haveMatch(this.toString()));
@@ -161,8 +165,8 @@ class Game {
         
     }
 
-    removeItem(item,rm) {
-        item.setType(this.randomItemType())
+    removeItem(item) {
+        item.setType(this.randomItemType());
         this.blocks[item.x].splice(item.y,1);
         this.blocks[item.x].unshift(item);
 
@@ -175,7 +179,6 @@ class Game {
                 if (item.x !== x || item.y !== y)
                     item.setXY(x,y)
             }
-                    
     }
 
     isVMatch(x,y) {
