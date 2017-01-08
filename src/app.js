@@ -1,4 +1,5 @@
 import Item from './class/Item';
+import Background from './class/Background';
 
 const WIDTH = 8;
 const HEIGHT = 11;
@@ -8,6 +9,7 @@ class Game {
     constructor(op) {
         this.moving = false;
         this.screenWidth = window.innerWidth;
+        this.screenHeight = window.innerHeight;
         this.blocks = [];
         this.root = op.root;
         this.gameBoard = op.board;
@@ -24,19 +26,22 @@ class Game {
         this.onSelect = undefined;
 
         
-        this.init_blocks()
+        this.init_blocks();
 
-        console.log(this.toString());
-        console.log(this.haveMatch(this.toString()));
+        this.background = new Background({
+            el: document.querySelector('.bg'),
+            width: this.screenWidth,
+            height: this.screenHeight
+        });
         
-        this.removeMatches(true)
+        this.removeMatches(true);
 
-        window.addEventListener('resize', this.onResize.bind(this))
+        window.addEventListener('resize', this.onResize.bind(this));
 
         
         window.requestAnimationFrame(function() {
             this.root.style.transform = 'scale('+(this.screenWidth/150)+')';
-        }.bind(this))
+        }.bind(this));
     }
 
     init_blocks() {
@@ -97,7 +102,13 @@ class Game {
 
     onResize() {
         this.screenWidth = window.innerWidth;
+        this.screenHeight = window.innerHeight;
         this.root.style.transform = 'scale('+(this.screenWidth/150)+')';
+        this.background.scale({
+            width: window.innerWidth,
+            height: window.innerHeight
+        });
+        this.background.updateScene();
     }
 
     resetItems() {
