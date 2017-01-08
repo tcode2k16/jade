@@ -2,7 +2,7 @@ import Item from './class/Item';
 
 const WIDTH = 8;
 const HEIGHT = 11;
-const DELAY = 100;
+const DELAY = 500;
 
 class Game {
     constructor(op) {
@@ -14,11 +14,11 @@ class Game {
         this.itemTypes = {
             'blueGem': 1,
             'purpleGem': 2,
-            'greenGem': 3
-            // 'gold': 4,
-            // 'redGem': 5,
-            // 'silver': 6,
-            // 'whiteGem': 7
+            'greenGem': 3,
+            'gold': 4,
+            'redGem': 5,
+            'silver': 6,
+            'whiteGem': 7
         };
 
         this.onSelect = undefined;
@@ -100,6 +100,13 @@ class Game {
         this.root.style.transform = 'scale('+(this.screenWidth/150)+')';
     }
 
+    resetItems() {
+        for (let y = 1; y < HEIGHT; y++) {
+            for (let x = 0; x < WIDTH; x++) {
+                this.blocks[x][y].setType(this.randomItemType());
+            }
+        }
+    }
 
     haveMove(s) {
         return /(\d)(\1(\d|.{6}|.{9})|(\d|.{6}|.{9})\1|.{7}\1(.|.{9})|(.|.{9})\1.{7}|(.{7,9}|.{17})\1.{8}|.{8}\1(.{7,9}|.{17}))\1/.test(s.replace(/\n/g,'A'))
@@ -129,6 +136,7 @@ class Game {
 
             if (!this.haveMatch(this.toString())) {
                 this.moving=false;
+                while (!this.haveMove) this.resetItems();
                 return 1;
             }
 
@@ -153,6 +161,7 @@ class Game {
 
                 if (!this.haveMatch(this.toString())) {
                     this.moving=false;
+                    while (!this.haveMove) this.resetItems();
                     return 1;
                 }
 
