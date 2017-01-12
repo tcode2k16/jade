@@ -21,6 +21,8 @@ export default class Background {
             engine: this.engine
         });
 
+        // this.render.options.wireframes = false;
+
         window.addEventListener('deviceorientation', function(e) {
             this.updateGravity(e);
             this.deviceOrientationEvent = e;
@@ -28,7 +30,6 @@ export default class Background {
 
         window.addEventListener('orientationchange', function() {
             this.updateGravity(this.deviceOrientationEvent);
-            console.log('working');
         }.bind(this), false);
 
 
@@ -65,7 +66,7 @@ export default class Background {
         if (!this.engine)
             return;
         
-        var orientation = window.orientation,
+        let orientation = window.orientation,
             gravity = this.engine.world.gravity;
 
         if (orientation === 0) {
@@ -95,9 +96,11 @@ export default class Background {
                 if (Common.random() < 0.8) {
                     return Bodies.rectangle(x, y, Common.random(20, 40), Common.random(20, 40), { friction: 0.01, restitution: 0.4 });
                 } else {
-                    return Bodies.rectangle(x, y, Common.random(80, 120), Common.random(20, 30), { friction: 0.01, restitution: 0.4 });
+                    return Bodies.rectangle(x, y, Common.random(80, 120), Common.random(20, 30), {
+                        friction: 0.01,
+                        restitution: 0.4
+                    });
                 }
-                break;
             case 1:
                 return Bodies.polygon(x, y, Math.round(Common.random(4, 6)), Common.random(20, 40), { friction: 0.01, restitution: 0.4 });
             
@@ -105,6 +108,17 @@ export default class Background {
         });
         
         World.add(world, stack);
+
+
+        // World.add(world, Bodies.rectangle(100, 100, Common.random(80, 120), Common.random(20, 30), {
+        //     friction: 0.01,
+        //     restitution: 0.4,
+        //     render: {
+        //         sprite: {
+        //             texture: '/src/img/redGem.png'
+        //         }
+        //     }
+        // }));
     }
 
     reset() {
@@ -116,9 +130,9 @@ export default class Background {
         Engine.clear(this.engine);
         
         let offset = 5;
-        World.addBody(world, Bodies.rectangle(this.width * 0.5, -offset, this.width + 0.5, 50.5, { isStatic: true }));
-        World.addBody(world, Bodies.rectangle(this.width * 0.5, this.height + offset, this.width + 0.5, 50.5, { isStatic: true }));
-        World.addBody(world, Bodies.rectangle(this.width + offset, this.height * 0.5, 50.5, this.height + 0.5, { isStatic: true }));
-        World.addBody(world, Bodies.rectangle(-offset, this.height * 0.5, 50.5, this.height + 0.5, { isStatic: true }));
+        World.addBody(world, Bodies.rectangle(this.width * 0.5, -offset, this.width + 0.5, offset*2, { isStatic: true }));
+        World.addBody(world, Bodies.rectangle(this.width * 0.5, this.height + offset, this.width + 0.5, offset*2, { isStatic: true }));
+        World.addBody(world, Bodies.rectangle(this.width + offset, this.height * 0.5, offset*2, this.height + 0.5, { isStatic: true }));
+        World.addBody(world, Bodies.rectangle(-offset, this.height * 0.5, offset*2, this.height + 0.5, { isStatic: true }));
     }
 }
