@@ -40,7 +40,7 @@ class Game {
 
         
         window.requestAnimationFrame(function() {
-            this.root.style.transform = 'scale('+(this.screenWidth/150)+')';
+            this.root.style.transform = 'scale('+(Math.min(this.screenWidth/150,3.5))+')';
         }.bind(this));
     }
 
@@ -103,7 +103,7 @@ class Game {
     onResize() {
         this.screenWidth = window.innerWidth;
         this.screenHeight = window.innerHeight;
-        this.root.style.transform = 'scale('+(this.screenWidth/150)+')';
+        this.root.style.transform = 'scale('+(Math.min(this.screenWidth/150,3.5))+')';
         this.background.scale({
             width: window.innerWidth,
             height: window.innerHeight
